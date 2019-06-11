@@ -1,0 +1,9 @@
+apiVersion: knap.bluebosh.com/v1alpha1
+kind: Appengine
+metadata:
+  name: example-appengine
+spec:
+  appName: picalc
+  gitRepo: https://github.com/IBM/tekton-tutorial
+  gitRevision: master
+  size: 1
