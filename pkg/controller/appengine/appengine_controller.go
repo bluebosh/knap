@@ -2,6 +2,7 @@ package appengine
 
 import (
 	"context"
+	"fmt"
 
 	//"github.com/pkg/errors"
 	knapv1alpha1 "github.com/bluebosh/knap/pkg/apis/knap/v1alpha1"
@@ -12,12 +13,12 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 	"sigs.k8s.io/controller-runtime/pkg/controller"
+	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 	"sigs.k8s.io/controller-runtime/pkg/handler"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
 	"sigs.k8s.io/controller-runtime/pkg/source"
-	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
 var log = logf.Log.WithName("controller_appengine")
@@ -88,8 +89,8 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 	reqLogger.Info("Reconciling Appengine")
 
 	// Fetch the Appengine instance
-	instance := &knapv1alpha1.Appengine{}
-	err := r.client.Get(context.TODO(), request.NamespacedName, instance)
+	app := &knapv1alpha1.Appengine{}
+	err := r.client.Get(context.TODO(), request.NamespacedName, app)
 	if err != nil {
 		if apiErrors.IsNotFound(err) {
 			// Request object not found, could have been deleted after reconcile request.
@@ -101,108 +102,74 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 		return reconcile.Result{}, err
 	}
 
-	// // Define a new Pod object
-	// pod := newPodForCR(instance)
 
-	// // Set Appengine instance as the owner and controller
-	// if err := controllerutil.SetControllerReference(instance, pod, r.scheme); err != nil {
-	// 	return reconcile.Result{}, err
-	// }
+	trygitresource := &pipelinev1alpha1.PipelineResource{}
+	err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: app.Namespace, Name: app.Spec.AppName + "-git"}, trygitresource)
+	if err != nil {
+		if apiErrors.IsNotFound(err) {
+			pipelinerun, err := runProcess(r, app)
 
-	// // Check if this Pod already exists
-	// found := &corev1.Pod{}
-	// err = r.client.Get(context.TODO(), types.NamespacedName{Name: pod.Name, Namespace: pod.Namespace}, found)
-	// if err != nil && errors.IsNotFound(err) {
-	// 	reqLogger.Info("Creating a new Pod", "Pod.Namespace", pod.Namespace, "Pod.Name", pod.Name)
-	// 	err = r.client.Create(context.TODO(), pod)
-	// 	if err != nil {
-	// 		return reconcile.Result{}, err
-	// 	}
-
-	// 	// Pod created successfully - don't requeue
-	// 	return reconcile.Result{}, nil
-	// } else if err != nil {
-	// 	return reconcile.Result{}, err
-	// }
-
-	size := instance.Spec.Size
-	if size < 1 {
-		instance.Status.Status = "Building"
-		instance.Status.Ready = "Pending"
-		err := r.client.Status().Update(context.TODO(), instance)
-		if err != nil {
-			reqLogger.Error(err, "Failed to update app status")
+			if err != nil {
+				reqLogger.Error(err, "Failed to create new app", "app name", app.Spec.AppName)
+				return reconcile.Result{}, err
+			}
+			reqLogger.Info("Finish build new app", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
+			return reconcile.Result{}, fmt.Errorf("wait for the new build result")
+		} else {
+			reqLogger.Error(err, "Failed to get git resource", "git resource", app.Spec.AppName + "-git")
 			return reconcile.Result{}, err
 		}
 	} else {
-		instance.Status.Status = "Completed"
-		instance.Status.Ready = "Running"
-		err := r.client.Status().Update(context.TODO(), instance)
-		if err != nil {
-			reqLogger.Error(err, "Failed to update app status")
-			return reconcile.Result{}, err
+		if app.Spec.GitRepo != trygitresource.Spec.Params[0].Value || app.Spec.GitRevision != trygitresource.Spec.Params[1].Value {
+			pipelinerun, err := runProcess(r, app)
+
+			if err != nil {
+				reqLogger.Error(err, "Failed to update the app", "app name", app.Spec.AppName)
+				return reconcile.Result{}, err
+			}
+			reqLogger.Info("Finish re-build the app", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
+			return reconcile.Result{}, fmt.Errorf("wait for the re-build result")
+		} else {
+			pipelinerunresult := &pipelinev1alpha1.PipelineRun{}
+			err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: app.Namespace, Name: app.Spec.AppName + "-pr-" + fmt.Sprintf("%d", app.ObjectMeta.Generation)}, pipelinerunresult)
+			if err != nil {
+				if apiErrors.IsNotFound(err) {
+					pipelinerun, err := runProcess(r, app)
+
+					if err != nil {
+						reqLogger.Error(err, "Failed to re-run the pipeline run", "pipelinerun name", app.Spec.AppName + "-pr" + fmt.Sprintf("%d", app.ObjectMeta.Generation))
+						return reconcile.Result{}, err
+					}
+					reqLogger.Info("Finish to re-run the pipelinerun", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
+					return reconcile.Result{}, fmt.Errorf("wait for the re-run build result")
+				} else {
+					reqLogger.Error(err, "Failed to get the pipelinerun", "pipelinerun name", app.Spec.AppName + "-pr-" + fmt.Sprintf("%d", app.ObjectMeta.Generation))
+					return reconcile.Result{}, err
+				}
+			} else {
+				if string(pipelinerunresult.Status.Conditions[0].Type) != "Succeeded" || string(pipelinerunresult.Status.Conditions[0].Status) != "True" {
+					app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
+					app.Status.Ready = "Pending"
+					err := r.client.Status().Update(context.TODO(), app)
+					if err != nil {
+						reqLogger.Error(err, "Failed to update app status during build")
+						return reconcile.Result{}, err
+					}
+					reqLogger.Info("Checking pipelinerun result", "pipelinerun name", pipelinerunresult.Name, "pipelinerun type", pipelinerunresult.Status.Conditions[0].Type, "pipelinerun status", pipelinerunresult.Status.Conditions[0].Status)
+					return reconcile.Result{}, fmt.Errorf("the build is not ready, wait for the pipelinerun result")
+				} else {
+					app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
+					app.Status.Ready = "Running"
+					err := r.client.Status().Update(context.TODO(), app)
+					if err != nil {
+						reqLogger.Error(err, "Failed to update app status after process")
+						return reconcile.Result{}, err
+					}
+					reqLogger.Info("The process is done", "pipelinerun name", pipelinerunresult.Name, "pipelinerun type", pipelinerunresult.Status.Conditions[0].Type, "pipelinerun status", pipelinerunresult.Status.Conditions[0].Status)
+					return reconcile.Result{}, nil
+				}
+			}
 		}
-
-		gitresource := &pipelinev1alpha1.PipelineResource{
-			ObjectMeta: metav1.ObjectMeta{
-				Name: instance.Spec.AppName + "-git",
-				Namespace: instance.Namespace,
-			},
-			Spec: pipelinev1alpha1.PipelineResourceSpec{
-				Type: pipelinev1alpha1.PipelineResourceTypeGit,
-				Params: []pipelinev1alpha1.Param{{
-					Name:  "revision",
-					Value: instance.Spec.GitRevision,
-				}, {
-					Name:  "url",
-					Value: instance.Spec.GitRepo,
-				}},
-			},
-		}
-
-		op, err := controllerutil.CreateOrUpdate(context.TODO(), r.client, gitresource, appSpecr(gitresource.Spec))
-
-		// err = r.client.Create(context.TODO(), gitresource)
-		if err != nil {
-			reqLogger.Error(err, "Failed to create or update git resource", instance.Spec.AppName + "-git", op)
-			return reconcile.Result{}, err
-		}
-		reqLogger.Info("Create or update app git resource", "git name", gitresource.Name)
-
-
-		err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: gitresource.Namespace, Name: gitresource.Name}, gitresource)
-		if err != nil {
-			reqLogger.Error(err, "Failed to get app git")
-			return reconcile.Result{}, err
-		}
-		reqLogger.Info("Get app git", "git", gitresource.Name, "git spec", gitresource.Spec.Params)
-	}
-	reqLogger.Info("Change app status", "Status.Status", instance.Status.Status, "Status.Ready", instance.Status.Ready)
-	// Pod already exists - don't requeue
-	reqLogger.Info("Skip reconcile: No Change")
-	return reconcile.Result{}, nil
-}
-
-// newPodForCR returns a busybox pod with the same name/namespace as the cr
-func newPodForCR(cr *knapv1alpha1.Appengine) *corev1.Pod {
-	labels := map[string]string{
-		"app": cr.Name,
-	}
-	return &corev1.Pod{
-		ObjectMeta: metav1.ObjectMeta{
-			Name:      cr.Name + "-pod",
-			Namespace: cr.Namespace,
-			Labels:    labels,
-		},
-		Spec: corev1.PodSpec{
-			Containers: []corev1.Container{
-				{
-					Name:    "busybox",
-					Image:   "busybox",
-					Command: []string{"sleep", "3600"},
-				},
-			},
-		},
 	}
 }
 
@@ -214,3 +181,73 @@ func appSpecr(spec pipelinev1alpha1.PipelineResourceSpec) controllerutil.MutateF
 	}
 }
 
+func createOrUpdateGitResource(r *ReconcileAppengine, app *knapv1alpha1.Appengine) error {
+	// Step 1 Create or update git resource for application
+	gitresource := &pipelinev1alpha1.PipelineResource{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      app.Spec.AppName + "-git",
+			Namespace: app.Namespace,
+		},
+		Spec: pipelinev1alpha1.PipelineResourceSpec{
+			Type: pipelinev1alpha1.PipelineResourceTypeGit,
+			Params: []pipelinev1alpha1.Param{{
+				Name:  "url",
+				Value: app.Spec.GitRepo,
+			}, {
+				Name:  "revision",
+				Value: app.Spec.GitRevision,
+			}},
+		},
+	}
+
+	_, err := controllerutil.CreateOrUpdate(context.TODO(), r.client, gitresource, appSpecr(gitresource.Spec))
+	// err = r.client.Create(context.TODO(), gitresource)
+	return err
+}
+
+func runPipeline(r *ReconcileAppengine, app *knapv1alpha1.Appengine) (*pipelinev1alpha1.PipelineRun, error) {
+	// Step 2 Run build and deploy pipeline
+	pipelinerun := &pipelinev1alpha1.PipelineRun{
+		ObjectMeta: metav1.ObjectMeta{
+			Name:      app.Spec.AppName + "-pr-" + fmt.Sprintf("%d", app.ObjectMeta.Generation),
+			Namespace: app.Namespace,
+		},
+		Spec: pipelinev1alpha1.PipelineRunSpec{
+			PipelineRef: pipelinev1alpha1.PipelineRef{
+				Name: "build-and-deploy-pipeline",
+			},
+			ServiceAccount: "pipeline-account",
+			Resources: []pipelinev1alpha1.PipelineResourceBinding{{
+				Name: "git-source",
+				ResourceRef: pipelinev1alpha1.PipelineResourceRef{
+					Name: app.Spec.AppName+"-git",
+				},
+			},
+			},
+			Params: []pipelinev1alpha1.Param{{
+				Name:  "pathToYamlFile",
+				Value: "knative/" + app.Spec.AppName +".yaml",
+			}, {
+				Name:  "imageUrl",
+				Value: "us.icr.io/knative_jordan/" + app.Spec.AppName,
+			}, {
+				Name:  "imageTag",
+				Value: fmt.Sprintf("%d", app.ObjectMeta.Generation) + ".0",
+			}},
+		},
+	}
+	err := r.client.Create(context.TODO(), pipelinerun)
+	return pipelinerun, err
+}
+
+func runProcess(r *ReconcileAppengine, app *knapv1alpha1.Appengine) (*pipelinev1alpha1.PipelineRun, error) {
+	err := createOrUpdateGitResource(r, app)
+	if err != nil {
+		return nil, err
+	}
+	pipelinerun, err := runPipeline(r, app)
+	if err != nil {
+		return nil, err
+	}
+	return pipelinerun, nil
+}

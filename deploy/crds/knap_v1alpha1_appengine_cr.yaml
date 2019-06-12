@@ -6,4 +6,4 @@ spec:
   appName: picalc
   gitRepo: https://github.com/IBM/tekton-tutorial
   gitRevision: master
-  size: 1
+  size: 0
