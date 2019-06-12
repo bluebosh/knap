@@ -3,9 +3,11 @@ package appengine
 import (
 	"context"
 
+	//"github.com/pkg/errors"
 	knapv1alpha1 "github.com/bluebosh/knap/pkg/apis/knap/v1alpha1"
+	pipelinev1alpha1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
 	corev1 "k8s.io/api/core/v1"
-	"k8s.io/apimachinery/pkg/api/errors"
+	apiErrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -15,6 +17,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/reconcile"
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
 	"sigs.k8s.io/controller-runtime/pkg/source"
+	"sigs.k8s.io/controller-runtime/pkg/controller/controllerutil"
 )
 
 var log = logf.Log.WithName("controller_appengine")
@@ -88,7 +91,7 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 	instance := &knapv1alpha1.Appengine{}
 	err := r.client.Get(context.TODO(), request.NamespacedName, instance)
 	if err != nil {
-		if errors.IsNotFound(err) {
+		if apiErrors.IsNotFound(err) {
 			// Request object not found, could have been deleted after reconcile request.
 			// Owned objects are automatically garbage collected. For additional cleanup logic use finalizers.
 			// Return and don't requeue
@@ -139,9 +142,42 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 			reqLogger.Error(err, "Failed to update app status")
 			return reconcile.Result{}, err
 		}
+
+		gitresource := &pipelinev1alpha1.PipelineResource{
+			ObjectMeta: metav1.ObjectMeta{
+				Name: instance.Spec.AppName + "-git",
+				Namespace: instance.Namespace,
+			},
+			Spec: pipelinev1alpha1.PipelineResourceSpec{
+				Type: pipelinev1alpha1.PipelineResourceTypeGit,
+				Params: []pipelinev1alpha1.Param{{
+					Name:  "revision",
+					Value: instance.Spec.GitRevision,
+				}, {
+					Name:  "url",
+					Value: instance.Spec.GitRepo,
+				}},
+			},
+		}
+
+		op, err := controllerutil.CreateOrUpdate(context.TODO(), r.client, gitresource, appSpecr(gitresource.Spec))
+
+		// err = r.client.Create(context.TODO(), gitresource)
+		if err != nil {
+			reqLogger.Error(err, "Failed to create or update git resource", instance.Spec.AppName + "-git", op)
+			return reconcile.Result{}, err
+		}
+		reqLogger.Info("Create or update app git resource", "git name", gitresource.Name)
+
+
+		err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: gitresource.Namespace, Name: gitresource.Name}, gitresource)
+		if err != nil {
+			reqLogger.Error(err, "Failed to get app git")
+			return reconcile.Result{}, err
+		}
+		reqLogger.Info("Get app git", "git", gitresource.Name, "git spec", gitresource.Spec.Params)
 	}
 	reqLogger.Info("Change app status", "Status.Status", instance.Status.Status, "Status.Ready", instance.Status.Ready)
-
 	// Pod already exists - don't requeue
 	reqLogger.Info("Skip reconcile: No Change")
 	return reconcile.Result{}, nil
@@ -169,3 +205,12 @@ func newPodForCR(cr *knapv1alpha1.Appengine) *corev1.Pod {
 		},
 	}
 }
+
+func appSpecr(spec pipelinev1alpha1.PipelineResourceSpec) controllerutil.MutateFn {
+	return func(obj runtime.Object) error {
+		app := obj.(*pipelinev1alpha1.PipelineResource)
+		app.Spec = spec
+		return nil
+	}
+}
+
