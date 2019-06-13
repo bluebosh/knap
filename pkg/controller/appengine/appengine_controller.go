@@ -173,6 +173,7 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 							app.Status.Ready = "Deployed"
 							//app.Status.PipelineRun = pipelinerunresult
 							app.Status.Domain = "Preparing"
+							app.Status.Instance = 0
 							err := r.client.Status().Update(context.TODO(), app)
 							if err != nil {
 								reqLogger.Error(err, "Failed to update app status after process", "app name", app.Spec.AppName)
@@ -181,8 +182,10 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 							reqLogger.Info("The route is not ready", "route status", approute.Status, "route domain", approute.Spec)
 							return reconcile.Result{Requeue: true, RequeueAfter: 5 * time.Second}, nil
 						} else {
+							app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
 							app.Status.Ready = "Running"
 							app.Status.Domain = approute.Status.DeprecatedDomain
+							app.Status.Instance = 1
 							err := r.client.Status().Update(context.TODO(), app)
 							if err != nil {
 								reqLogger.Error(err, "Failed to update app status when route is ready", "app name", app.Spec.AppName)
