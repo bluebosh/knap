@@ -1,11 +1,8 @@
 # Knative Application Platform (under construction)
 
-One Paragraph of project description goes here
-
-## Goal
-
 This project aims to bring a simple CI/CD experience to end users from building to deploying a Cloud application on Kubernets (or Knative). We offer some CRDs/Controllers and a cli (may be changed to a plugin of [Knative cli](https://github.com/knative/client) in future) which talk to [Tekton](https://github.com/tektoncd/pipeline) (a underlying pipeline system) to track and manage the lifecycle of buiding and deplying the application.
 
+![knap_workflow](https://github.com/bluebosh/knap/blob/master/doc/knap.png)
 
 ### Use Case 1 ###
 Jordan is a developer of a startup company, he is trying to develop a new cloud application and plan to deploy on Kubernetes. He has a Kubernets cluster sitting on IBM Cloud. He created 3 name spaces `dev`, `staing` and `production`, and he followed the installation guide to enabled Knative and installed Tekton and this project `knap`. At the very early phase, he quickly rolled out the code and just wanted to build and deploy the application on the Kubernete cluster automatically for each new git commit. To archive this, with `knap`, he just needed to run few commands to get knap to watch his git project and help build and run the application in `dev` namespace when a new commit shown up.
@@ -87,8 +84,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Jordan Zhang** - *Major committer*
-* **Matt Cui** - *Project Manager*
+* **Jordan Zhang** - *cheif committer*
+* **Grace Zhang** - *major contributor*
+* **Edward Xiao** - *major contributor*
+* **Matt Cui** - *project Manager*
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
