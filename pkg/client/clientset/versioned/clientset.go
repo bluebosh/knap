@@ -3,7 +3,7 @@
 package versioned
 
 import (
-	knapv1alpha1 "github.com/bluebosh/knap/pkg/kube/client/clientset/versioned/typed/knap/v1alpha1"
+	knapv1alpha1 "github.com/bluebosh/knap/pkg/client/clientset/versioned/typed/knap/v1alpha1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

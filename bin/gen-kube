@@ -20,8 +20,8 @@ fi
 # The groups and their versions in the format "groupA:v1,v2 groupB:v1 groupC:v2"
 GROUP_VERSIONS="knap:v1alpha1"
 
-env GO111MODULE="$GO111MODULE" "${CODEGEN_PKG}/generate-groups.sh" "deepcopy,client,lister" \
-  github.com/bluebosh/knap/pkg/kube/client \
+env GO111MODULE="$GO111MODULE" "${CODEGEN_PKG}/generate-groups.sh" all \
+  github.com/bluebosh/knap/pkg/client \
   github.com/bluebosh/knap/pkg/apis \
   "${GROUP_VERSIONS}" \
 --go-header-file "${GIT_ROOT}/gen/header.go.txt"
