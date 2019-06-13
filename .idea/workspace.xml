@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b5ce03e6-428d-4d5e-a03b-271f922456aa" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/gen-kube" beforeDir="false" afterPath="$PROJECT_DIR$/bin/gen-kube" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,18 +14,6 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2760">
-              <caret line="184" column="99" selection-start-line="184" selection-start-column="99" selection-end-line="184" selection-end-column="99" />
-              <folding>
-                <element signature="e#19#846#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pkg/apis/apis.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="75">
@@ -34,22 +22,47 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/bin/gen-kube">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
-            </state>
-          </provider>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/typed/knap/v1alpha1/knap_client.go">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/typed/knap/v1alpha1/generated_expansion.go">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/typed/knap/v1alpha1/doc.go">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/doc.go">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="31" />
+              <caret line="2" column="18" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="31" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/register.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/zz_generated.deepcopy.go">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/zz_generated.openapi.go">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -61,28 +74,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/kube/client/clientset/versioned/clientset.go">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="24" column="18" selection-start-line="24" selection-start-column="9" selection-end-line="24" selection-end-column="18" />
+            <state relative-caret-position="315">
+              <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+              <folding>
+                <element signature="e#18#153#0" expanded="true" />
+              </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/kube/client/clientset/versioned/typed/knap/v1alpha1/knap_client.go">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/kube/client/clientset/versioned/typed/knap/v1alpha1/generated_expansion.go">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/kube/client/clientset/versioned/typed/knap/v1alpha1/doc.go">
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -129,9 +130,11 @@
         <option value="$PROJECT_DIR$/deploy/crds/knap_helloworld_cr.yaml" />
         <option value="$PROJECT_DIR$/build/bin/gen-kube" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go" />
         <option value="$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go" />
         <option value="$PROJECT_DIR$/bin/gen-kube" />
+        <option value="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/register.go" />
+        <option value="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/doc.go" />
+        <option value="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go" />
       </list>
     </option>
   </component>
@@ -188,35 +191,52 @@
               <item name="knap" type="b2602c69:ProjectViewProjectNode" />
               <item name="knap" type="462c0819:PsiDirectoryNode" />
               <item name="pkg" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
-              <item name="knap" type="462c0819:PsiDirectoryNode" />
-              <item name="pkg" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
-              <item name="appengine" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
-              <item name="knap" type="462c0819:PsiDirectoryNode" />
-              <item name="pkg" type="462c0819:PsiDirectoryNode" />
-              <item name="kube" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
-              <item name="knap" type="462c0819:PsiDirectoryNode" />
-              <item name="pkg" type="462c0819:PsiDirectoryNode" />
-              <item name="kube" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="knap" type="b2602c69:ProjectViewProjectNode" />
               <item name="knap" type="462c0819:PsiDirectoryNode" />
               <item name="pkg" type="462c0819:PsiDirectoryNode" />
-              <item name="kube" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="clientset" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="clientset" type="462c0819:PsiDirectoryNode" />
+              <item name="versioned" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="clientset" type="462c0819:PsiDirectoryNode" />
+              <item name="versioned" type="462c0819:PsiDirectoryNode" />
+              <item name="typed" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="clientset" type="462c0819:PsiDirectoryNode" />
+              <item name="versioned" type="462c0819:PsiDirectoryNode" />
+              <item name="typed" type="462c0819:PsiDirectoryNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="clientset" type="462c0819:PsiDirectoryNode" />
+              <item name="versioned" type="462c0819:PsiDirectoryNode" />
+              <item name="typed" type="462c0819:PsiDirectoryNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="v1alpha1" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -290,7 +310,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3739726" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.12602739" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3452055" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -302,17 +322,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1/cluster_resource.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-20" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1/artifact_bucket.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/github.com/tektoncd/pipeline/LICENSE">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/github.com/knative/pkg/kmp/reporters.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="139">
@@ -534,29 +543,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/register.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="17" column="31" selection-start-line="17" selection-start-column="31" selection-end-line="17" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/zz_generated.deepcopy.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/zz_generated.openapi.go">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" column="34" selection-start-line="42" selection-start-column="34" selection-end-line="42" selection-end-column="34" />
-          <folding>
-            <element signature="e#18#153#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2760">
@@ -583,6 +569,22 @@
     <entry file="file://$PROJECT_DIR$/pkg/kube/client/clientset/versioned/typed/knap/v1alpha1/knap_client.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/bin/gen-kube">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/typed/knap/v1alpha1/fake/fake_knap_client.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/zz_generated.deepcopy.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/zz_generated.openapi.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/pkg/apis/addtoscheme_knap_v1alpha1.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -597,17 +599,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/doc.go">
+    <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/typed/knap/v1alpha1/knap_client.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/typed/knap/v1alpha1/generated_expansion.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/typed/knap/v1alpha1/doc.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/register.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="31" />
+        <state relative-caret-position="60">
+          <caret line="4" column="18" lean-forward="true" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/bin/gen-kube">
+    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/doc.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="31" lean-forward="true" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+        <state relative-caret-position="30">
+          <caret line="2" column="18" lean-forward="true" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+          <folding>
+            <element signature="e#18#153#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
