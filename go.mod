@@ -19,6 +19,7 @@ require (
 	github.com/golang/mock v1.2.0 // indirect
 	github.com/google/btree v0.0.0-20180813153112-4030bb1f1f0c // indirect
 	github.com/google/go-cmp v0.3.0 // indirect
+	github.com/google/go-containerregistry v0.0.0-20190611173133-6991786f9312 // indirect
 	github.com/google/uuid v1.0.0 // indirect
 	github.com/googleapis/gnostic v0.2.0 // indirect
 	github.com/gophercloud/gophercloud v0.0.0-20190318015731-ff9851476e98 // indirect
@@ -26,14 +27,15 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway v1.8.5 // indirect
 	github.com/imdario/mergo v0.3.6 // indirect
 	github.com/jmank88/nuts v0.3.0 // indirect
+	github.com/knative/build v0.6.0 // indirect
 	github.com/knative/pkg v0.0.0-20190610153941-28f181241cdb // indirect
+	github.com/knative/serving v0.6.1
 	github.com/mattbaird/jsonpatch v0.0.0-20171005235357-81af80346b1a // indirect
 	github.com/nightlyone/lockfile v0.0.0-20180618180623-0ad87eef1443 // indirect
 	github.com/operator-framework/operator-sdk v0.8.2-0.20190522220659-031d71ef8154
 	github.com/pborman/uuid v0.0.0-20180906182336-adf5a7427709 // indirect
 	github.com/pelletier/go-toml v1.4.0 // indirect
 	github.com/peterbourgon/diskv v2.0.1+incompatible // indirect
-	github.com/pkg/errors v0.8.1
 	github.com/sdboyer/constext v0.0.0-20170321163424-836a14457353 // indirect
 	github.com/spf13/pflag v1.0.3
 	github.com/tektoncd/pipeline v0.4.0

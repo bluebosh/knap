@@ -1,0 +1,10 @@
+apiVersion: knap.bluebosh.com/v1alpha1
+kind: Appengine
+metadata:
+  name: helloworld-appengine
+spec:
+  appName: helloworld
+  gitRepo: https://github.com/bluebosh/knap-example
+  gitRevision: c3f2b71d600322b6fdbf251aea702666c4009c8e
+  pipelineTemplate: build-and-deploy-pipeline
+  size: 0

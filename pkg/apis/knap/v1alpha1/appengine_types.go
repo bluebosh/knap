@@ -2,6 +2,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	//pipelinev1alpha1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -21,6 +22,9 @@ type AppengineSpec struct {
 
 	// The application instance count
 	Size int32 `json:"size"`
+
+	// The pipeline template of the application
+	PipelineTemplate string `json:"pipelineTemplate"`
 }
 
 // AppengineStatus defines the observed state of Appengine
@@ -33,7 +37,8 @@ type AppengineStatus struct {
 	Ready string `json:"ready"`
 
 	// The pipeline of the application
-	PipelineRun string `json:"pipelineRun"`
+	// PipelineRun *pipelinev1alpha1.PipelineRun `json:"pipelineRun"`
+	Domain string `json:"domain"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

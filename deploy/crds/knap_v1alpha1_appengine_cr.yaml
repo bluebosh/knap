@@ -6,4 +6,5 @@ spec:
   appName: picalc
   gitRepo: https://github.com/IBM/tekton-tutorial
   gitRevision: master
+  pipelineTemplate: build-and-deploy-pipeline
   size: 0

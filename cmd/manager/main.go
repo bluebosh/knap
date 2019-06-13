@@ -21,6 +21,7 @@ import (
 	sdkVersion "github.com/operator-framework/operator-sdk/version"
 	"github.com/spf13/pflag"
 	pipev1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
+	servingv1 "github.com/knative/serving/pkg/apis/serving/v1alpha1"
 	"sigs.k8s.io/controller-runtime/pkg/client/config"
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
@@ -106,6 +107,12 @@ func main() {
 
 	// Setup Scheme for tekton
 	if err := pipev1.AddToScheme(mgr.GetScheme()); err != nil {
+		log.Error(err, "")
+		os.Exit(1)
+	}
+
+	// Setup Scheme for knative
+	if err := servingv1.AddToScheme(mgr.GetScheme()); err != nil {
 		log.Error(err, "")
 		os.Exit(1)
 	}

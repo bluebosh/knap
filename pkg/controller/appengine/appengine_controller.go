@@ -3,10 +3,12 @@ package appengine
 import (
 	"context"
 	"fmt"
+	"time"
 
 	//"github.com/pkg/errors"
 	knapv1alpha1 "github.com/bluebosh/knap/pkg/apis/knap/v1alpha1"
 	pipelinev1alpha1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
+	servingv1 "github.com/knative/serving/pkg/apis/serving/v1alpha1"
 	corev1 "k8s.io/api/core/v1"
 	apiErrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -102,7 +104,6 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 		return reconcile.Result{}, err
 	}
 
-
 	trygitresource := &pipelinev1alpha1.PipelineResource{}
 	err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: app.Namespace, Name: app.Spec.AppName + "-git"}, trygitresource)
 	if err != nil {
@@ -114,9 +115,9 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 				return reconcile.Result{}, err
 			}
 			reqLogger.Info("Finish build new app", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
-			return reconcile.Result{}, fmt.Errorf("wait for the new build result")
+			return reconcile.Result{Requeue: true, RequeueAfter: 5 * time.Second}, nil
 		} else {
-			reqLogger.Error(err, "Failed to get git resource", "git resource", app.Spec.AppName + "-git")
+			reqLogger.Error(err, "Failed to get git resource", "git resource", app.Spec.AppName+"-git")
 			return reconcile.Result{}, err
 		}
 	} else {
@@ -127,8 +128,8 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 				reqLogger.Error(err, "Failed to update the app", "app name", app.Spec.AppName)
 				return reconcile.Result{}, err
 			}
-			reqLogger.Info("Finish re-build the app", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
-			return reconcile.Result{}, fmt.Errorf("wait for the re-build result")
+			reqLogger.Info("Finish re-build the app, waiting for result", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
+			return reconcile.Result{Requeue: true, RequeueAfter: 5 * time.Second}, nil
 		} else {
 			pipelinerunresult := &pipelinev1alpha1.PipelineRun{}
 			err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: app.Namespace, Name: app.Spec.AppName + "-pr-" + fmt.Sprintf("%d", app.ObjectMeta.Generation)}, pipelinerunresult)
@@ -137,35 +138,60 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 					pipelinerun, err := runProcess(r, app)
 
 					if err != nil {
-						reqLogger.Error(err, "Failed to re-run the pipeline run", "pipelinerun name", app.Spec.AppName + "-pr" + fmt.Sprintf("%d", app.ObjectMeta.Generation))
+						reqLogger.Error(err, "Failed to re-run the pipeline run", "pipelinerun name", app.Spec.AppName+"-pr"+fmt.Sprintf("%d", app.ObjectMeta.Generation))
 						return reconcile.Result{}, err
 					}
-					reqLogger.Info("Finish to re-run the pipelinerun", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
-					return reconcile.Result{}, fmt.Errorf("wait for the re-run build result")
+					reqLogger.Info("Finish to re-run the pipelinerun, waiting for result", "pipelinerun name", pipelinerun.Name, "pipelinerun status", pipelinerun.Status.Results)
+					return reconcile.Result{Requeue: true, RequeueAfter: 5 * time.Second}, nil
 				} else {
-					reqLogger.Error(err, "Failed to get the pipelinerun", "pipelinerun name", app.Spec.AppName + "-pr-" + fmt.Sprintf("%d", app.ObjectMeta.Generation))
+					reqLogger.Error(err, "Failed to get the pipelinerun", "pipelinerun name", app.Spec.AppName+"-pr-"+fmt.Sprintf("%d", app.ObjectMeta.Generation))
 					return reconcile.Result{}, err
 				}
 			} else {
 				if string(pipelinerunresult.Status.Conditions[0].Type) != "Succeeded" || string(pipelinerunresult.Status.Conditions[0].Status) != "True" {
 					app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
 					app.Status.Ready = "Pending"
+					//app.Status.PipelineRun = pipelinerunresult
+					app.Status.Domain = "NotReady"
 					err := r.client.Status().Update(context.TODO(), app)
 					if err != nil {
-						reqLogger.Error(err, "Failed to update app status during build")
+						reqLogger.Error(err, "Failed to update app status during build", "app name", app.Spec.AppName)
 						return reconcile.Result{}, err
 					}
-					reqLogger.Info("Checking pipelinerun result", "pipelinerun name", pipelinerunresult.Name, "pipelinerun type", pipelinerunresult.Status.Conditions[0].Type, "pipelinerun status", pipelinerunresult.Status.Conditions[0].Status)
-					return reconcile.Result{}, fmt.Errorf("the build is not ready, wait for the pipelinerun result")
+					reqLogger.Info("Finish the whole process, waiting for result", "pipelinerun name", pipelinerunresult.Name, "pipelinerun type", pipelinerunresult.Status.Conditions[0].Type, "pipelinerun status", pipelinerunresult.Status.Conditions[0].Status)
+					return reconcile.Result{Requeue: true, RequeueAfter: 5 * time.Second}, nil
 				} else {
-					app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
-					app.Status.Ready = "Running"
-					err := r.client.Status().Update(context.TODO(), app)
+					reqLogger.Info("The pipeline is done, wait for service startup", "pipelinerun name", pipelinerunresult.Name, "pipelinerun type", pipelinerunresult.Status.Conditions[0].Type, "pipelinerun status", pipelinerunresult.Status.Conditions[0].Status)
+					approute := &servingv1.Route{}
+					err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: app.Namespace, Name: app.Spec.AppName}, approute)
 					if err != nil {
-						reqLogger.Error(err, "Failed to update app status after process")
+						reqLogger.Error(err, "Failed to get route for app", "app name", app.Spec.AppName)
 						return reconcile.Result{}, err
+					} else {
+						if approute.Status.Conditions[2].Status != "True" {
+							app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
+							app.Status.Ready = "Deployed"
+							//app.Status.PipelineRun = pipelinerunresult
+							app.Status.Domain = "Preparing"
+							err := r.client.Status().Update(context.TODO(), app)
+							if err != nil {
+								reqLogger.Error(err, "Failed to update app status after process", "app name", app.Spec.AppName)
+								return reconcile.Result{}, err
+							}
+							reqLogger.Info("The route is not ready", "route status", approute.Status, "route domain", approute.Spec)
+							return reconcile.Result{Requeue: true, RequeueAfter: 5 * time.Second}, nil
+						} else {
+							app.Status.Ready = "Running"
+							app.Status.Domain = approute.Status.DeprecatedDomain
+							err := r.client.Status().Update(context.TODO(), app)
+							if err != nil {
+								reqLogger.Error(err, "Failed to update app status when route is ready", "app name", app.Spec.AppName)
+								return reconcile.Result{}, err
+							}
+							reqLogger.Info("The route is ready", "route status", approute.Status, "route domain", approute.Spec)
+						}
 					}
-					reqLogger.Info("The process is done", "pipelinerun name", pipelinerunresult.Name, "pipelinerun type", pipelinerunresult.Status.Conditions[0].Type, "pipelinerun status", pipelinerunresult.Status.Conditions[0].Status)
+
 					return reconcile.Result{}, nil
 				}
 			}
@@ -220,13 +246,13 @@ func runPipeline(r *ReconcileAppengine, app *knapv1alpha1.Appengine) (*pipelinev
 			Resources: []pipelinev1alpha1.PipelineResourceBinding{{
 				Name: "git-source",
 				ResourceRef: pipelinev1alpha1.PipelineResourceRef{
-					Name: app.Spec.AppName+"-git",
+					Name: app.Spec.AppName + "-git",
 				},
 			},
 			},
 			Params: []pipelinev1alpha1.Param{{
 				Name:  "pathToYamlFile",
-				Value: "knative/" + app.Spec.AppName +".yaml",
+				Value: "knative/" + app.Spec.AppName + ".yaml",
 			}, {
 				Name:  "imageUrl",
 				Value: "us.icr.io/knative_jordan/" + app.Spec.AppName,

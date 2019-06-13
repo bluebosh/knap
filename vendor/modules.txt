@@ -82,6 +82,8 @@ github.com/google/go-cmp/cmp/internal/diff
 github.com/google/go-cmp/cmp/internal/flags
 github.com/google/go-cmp/cmp/internal/function
 github.com/google/go-cmp/cmp/internal/value
+# github.com/google/go-containerregistry v0.0.0-20190611173133-6991786f9312
+github.com/google/go-containerregistry/pkg/name
 # github.com/google/gofuzz v0.0.0-20170612174753-24818f796faf
 github.com/google/gofuzz
 # github.com/google/uuid v1.0.0
@@ -114,11 +116,26 @@ github.com/imdario/mergo
 github.com/joho/godotenv
 # github.com/json-iterator/go v1.1.6
 github.com/json-iterator/go
+# github.com/knative/build v0.6.0
+github.com/knative/build/pkg/apis/build/v1alpha1
+github.com/knative/build/pkg/apis/build
 # github.com/knative/pkg v0.0.0-20190610153941-28f181241cdb
 github.com/knative/pkg/apis
 github.com/knative/pkg/apis/duck/v1beta1
+github.com/knative/pkg/apis/duck/v1alpha1
+github.com/knative/pkg/kmeta
 github.com/knative/pkg/kmp
+github.com/knative/pkg/ptr
 github.com/knative/pkg/apis/duck
+github.com/knative/pkg/configmap
+# github.com/knative/serving v0.6.1
+github.com/knative/serving/pkg/apis/serving/v1alpha1
+github.com/knative/serving/pkg/apis/networking
+github.com/knative/serving/pkg/apis/networking/v1alpha1
+github.com/knative/serving/pkg/apis/serving
+github.com/knative/serving/pkg/apis/serving/v1beta1
+github.com/knative/serving/pkg/apis/autoscaling
+github.com/knative/serving/pkg/apis/config
 # github.com/mailru/easyjson v0.0.0-20180823135443-60711f1a8329
 github.com/mailru/easyjson/jlexer
 github.com/mailru/easyjson/jwriter
@@ -458,6 +475,80 @@ k8s.io/client-go/kubernetes/typed/settings/v1alpha1
 k8s.io/client-go/kubernetes/typed/storage/v1
 k8s.io/client-go/kubernetes/typed/storage/v1alpha1
 k8s.io/client-go/kubernetes/typed/storage/v1beta1
+k8s.io/client-go/informers
+k8s.io/client-go/informers/core/v1
+k8s.io/client-go/informers/admissionregistration
+k8s.io/client-go/informers/apps
+k8s.io/client-go/informers/auditregistration
+k8s.io/client-go/informers/autoscaling
+k8s.io/client-go/informers/batch
+k8s.io/client-go/informers/certificates
+k8s.io/client-go/informers/coordination
+k8s.io/client-go/informers/core
+k8s.io/client-go/informers/events
+k8s.io/client-go/informers/extensions
+k8s.io/client-go/informers/internalinterfaces
+k8s.io/client-go/informers/networking
+k8s.io/client-go/informers/policy
+k8s.io/client-go/informers/rbac
+k8s.io/client-go/informers/scheduling
+k8s.io/client-go/informers/settings
+k8s.io/client-go/informers/storage
+k8s.io/client-go/listers/core/v1
+k8s.io/client-go/informers/admissionregistration/v1alpha1
+k8s.io/client-go/informers/admissionregistration/v1beta1
+k8s.io/client-go/informers/apps/v1
+k8s.io/client-go/informers/apps/v1beta1
+k8s.io/client-go/informers/apps/v1beta2
+k8s.io/client-go/informers/auditregistration/v1alpha1
+k8s.io/client-go/informers/autoscaling/v1
+k8s.io/client-go/informers/autoscaling/v2beta1
+k8s.io/client-go/informers/autoscaling/v2beta2
+k8s.io/client-go/informers/batch/v1
+k8s.io/client-go/informers/batch/v1beta1
+k8s.io/client-go/informers/batch/v2alpha1
+k8s.io/client-go/informers/certificates/v1beta1
+k8s.io/client-go/informers/coordination/v1beta1
+k8s.io/client-go/informers/events/v1beta1
+k8s.io/client-go/informers/extensions/v1beta1
+k8s.io/client-go/informers/networking/v1
+k8s.io/client-go/informers/policy/v1beta1
+k8s.io/client-go/informers/rbac/v1
+k8s.io/client-go/informers/rbac/v1alpha1
+k8s.io/client-go/informers/rbac/v1beta1
+k8s.io/client-go/informers/scheduling/v1alpha1
+k8s.io/client-go/informers/scheduling/v1beta1
+k8s.io/client-go/informers/settings/v1alpha1
+k8s.io/client-go/informers/storage/v1
+k8s.io/client-go/informers/storage/v1alpha1
+k8s.io/client-go/informers/storage/v1beta1
+k8s.io/client-go/listers/admissionregistration/v1alpha1
+k8s.io/client-go/listers/admissionregistration/v1beta1
+k8s.io/client-go/listers/apps/v1
+k8s.io/client-go/listers/apps/v1beta1
+k8s.io/client-go/listers/apps/v1beta2
+k8s.io/client-go/listers/auditregistration/v1alpha1
+k8s.io/client-go/listers/autoscaling/v1
+k8s.io/client-go/listers/autoscaling/v2beta1
+k8s.io/client-go/listers/autoscaling/v2beta2
+k8s.io/client-go/listers/batch/v1
+k8s.io/client-go/listers/batch/v1beta1
+k8s.io/client-go/listers/batch/v2alpha1
+k8s.io/client-go/listers/certificates/v1beta1
+k8s.io/client-go/listers/coordination/v1beta1
+k8s.io/client-go/listers/events/v1beta1
+k8s.io/client-go/listers/extensions/v1beta1
+k8s.io/client-go/listers/networking/v1
+k8s.io/client-go/listers/policy/v1beta1
+k8s.io/client-go/listers/rbac/v1
+k8s.io/client-go/listers/rbac/v1alpha1
+k8s.io/client-go/listers/rbac/v1beta1
+k8s.io/client-go/listers/scheduling/v1alpha1
+k8s.io/client-go/listers/scheduling/v1beta1
+k8s.io/client-go/listers/settings/v1alpha1
+k8s.io/client-go/listers/storage/v1
+k8s.io/client-go/listers/storage/v1alpha1
+k8s.io/client-go/listers/storage/v1beta1
 # k8s.io/code-generator v0.0.0-20180823001027-3dcf91f64f63 => k8s.io/code-generator v0.0.0-20181117043124-c2090bec4d9b
 k8s.io/code-generator/cmd/client-gen
 k8s.io/code-generator/cmd/conversion-gen
