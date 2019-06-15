@@ -3,6 +3,7 @@ package appengine
 import (
 	"context"
 	"fmt"
+	"strings"
 	"time"
 
 	//"github.com/pkg/errors"
@@ -98,6 +99,19 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 			// Request object not found, could have been deleted after reconcile request.
 			// Owned objects are automatically garbage collected. For additional cleanup logic use finalizers.
 			// Return and don't requeue
+			appservice := &servingv1.Service{}
+			appservicename := strings.Replace(request.Name, "-appengine", "", -1 )
+			err = r.client.Get(context.TODO(), client.ObjectKey{Namespace: request.Namespace, Name: appservicename}, appservice)
+			if err != nil {
+				reqLogger.Error(err, "Failed to get app service", "knative service name", )
+				return reconcile.Result{}, err
+			}
+			err = r.client.Delete(context.TODO(), appservice)
+			if err != nil {
+				reqLogger.Error(err, "Failed to delete app service", "knative service name", )
+				return reconcile.Result{}, err
+			}
+
 			return reconcile.Result{}, nil
 		}
 		// Error reading the object - requeue the request.
@@ -229,6 +243,11 @@ func createOrUpdateGitResource(r *ReconcileAppengine, app *knapv1alpha1.Appengin
 		},
 	}
 
+	// Set Application instance as the owner and controller
+	if err := controllerutil.SetControllerReference(app, gitresource, r.scheme); err != nil {
+		return err
+	}
+
 	_, err := controllerutil.CreateOrUpdate(context.TODO(), r.client, gitresource, appSpecr(gitresource.Spec))
 	// err = r.client.Create(context.TODO(), gitresource)
 	return err
@@ -265,8 +284,18 @@ func runPipeline(r *ReconcileAppengine, app *knapv1alpha1.Appengine) (*pipelinev
 			}},
 		},
 	}
+
+	// Set Application instance as the owner and controller
+	if err := controllerutil.SetControllerReference(app, pipelinerun, r.scheme); err != nil {
+		return pipelinerun,err
+	}
+
 	err := r.client.Create(context.TODO(), pipelinerun)
-	return pipelinerun, err
+	if err != nil {
+		return nil, err
+	}
+
+	return pipelinerun, nil
 }
 
 func runProcess(r *ReconcileAppengine, app *knapv1alpha1.Appengine) (*pipelinev1alpha1.PipelineRun, error) {

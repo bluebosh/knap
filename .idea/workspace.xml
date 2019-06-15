@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b5ce03e6-428d-4d5e-a03b-271f922456aa" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/pkg/apis/apis.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1590">
-              <caret line="106" column="31" selection-start-line="106" selection-start-column="31" selection-end-line="106" selection-end-column="31" />
+            <state relative-caret-position="172">
+              <caret line="107" column="13" selection-start-line="107" selection-start-column="13" selection-end-line="107" selection-end-column="13" />
               <folding>
                 <element signature="e#19#846#0" expanded="true" />
               </folding>
@@ -26,91 +27,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/apis/addtoscheme_knap_v1alpha1.go">
+        <entry file="file://$PROJECT_DIR$/vendor/sigs.k8s.io/controller-runtime/pkg/client/interfaces.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/doc.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="14" selection-start-line="2" selection-start-column="14" selection-end-line="2" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bin/gen-kube">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" selection-start-line="6" selection-end-line="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/client/clientset/versioned/scheme/register.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="1" lean-forward="true" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
-              <folding>
-                <element signature="e#63#381#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/register.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pkg/apis/apis.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
-              <folding>
-                <element signature="e#14#59#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/deploy/crds/knap_helloworld_cr.yaml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/cmd/manager/main.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1710">
-              <caret line="114" column="23" selection-start-line="114" selection-start-column="23" selection-end-line="114" selection-end-column="23" />
-              <folding>
-                <element signature="e#14#993#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-267">
-              <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+            <state relative-caret-position="157">
+              <caret line="62" column="4" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
             </state>
           </provider>
         </entry>
@@ -141,6 +61,7 @@
       <find>wait</find>
       <find>AddKnownTypes</find>
       <find>The route is ready</find>
+      <find>Reconciling Appengine</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/vendor/github.com/tektoncd/pipeline/pkg/apis</dir>
@@ -165,13 +86,13 @@
         <option value="$PROJECT_DIR$/deploy/crds/knap_helloworld_cr.yaml" />
         <option value="$PROJECT_DIR$/build/bin/gen-kube" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go" />
         <option value="$PROJECT_DIR$/bin/gen-kube" />
         <option value="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/doc.go" />
         <option value="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go" />
         <option value="$PROJECT_DIR$/pkg/client/clientset/versioned/scheme/register.go" />
         <option value="$PROJECT_DIR$/pkg/apis/knap/v1alpha1/register.go" />
         <option value="$PROJECT_DIR$/pkg/apis/apis.go" />
+        <option value="$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go" />
       </list>
     </option>
   </component>
@@ -196,6 +117,27 @@
             <path>
               <item name="knap" type="b2602c69:ProjectViewProjectNode" />
               <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="bin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="build" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="deploy" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="deploy" type="462c0819:PsiDirectoryNode" />
+              <item name="crds" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
               <item name="pkg" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -203,6 +145,34 @@
               <item name="knap" type="462c0819:PsiDirectoryNode" />
               <item name="pkg" type="462c0819:PsiDirectoryNode" />
               <item name="apis" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="apis" type="462c0819:PsiDirectoryNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="apis" type="462c0819:PsiDirectoryNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="v1alpha1" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="knap" type="b2602c69:ProjectViewProjectNode" />
+              <item name="knap" type="462c0819:PsiDirectoryNode" />
+              <item name="pkg" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="appengine" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -261,10 +231,10 @@
     </recent_temporary>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49829933" visible="true" weight="0.30329043" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49829933" visible="true" weight="0.08966074" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5017007" side_tool="true" weight="0.18659128" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -277,7 +247,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3739726" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.44819278" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.28767124" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -289,7 +259,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/vendor/github.com/google/go-cmp/cmp/reporter.go" />
     <entry file="file://$PROJECT_DIR$/vendor/github.com/knative/pkg/kmp/doc.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -340,13 +309,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/sigs.k8s.io/controller-runtime/pkg/client/interfaces.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="48" column="4" selection-start-line="48" selection-start-column="4" selection-end-line="48" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/vendor/sigs.k8s.io/controller-runtime/pkg/controller/controllerutil/controllerutil.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="261">
@@ -393,13 +355,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="268">
           <caret line="96" column="5" selection-start-line="96" selection-start-column="5" selection-end-line="96" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/vendor/sigs.k8s.io/controller-runtime/pkg/reconcile/reconcile.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -479,13 +434,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/deploy/crds/knap_helloworld_cr.yaml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="55" selection-start-line="7" selection-start-column="55" selection-end-line="7" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cmd/manager/main.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1710">
@@ -534,8 +482,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/appengine_types.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-267">
-          <caret line="4" column="6" selection-start-line="4" selection-start-column="6" selection-end-line="4" selection-end-column="6" />
+        <state relative-caret-position="94">
+          <caret line="45" column="13" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="13" />
+          <folding>
+            <element signature="e#18#153#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -559,33 +510,58 @@
     <entry file="file://$PROJECT_DIR$/pkg/apis/addtoscheme_knap_v1alpha1.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1590">
-          <caret line="106" column="31" selection-start-line="106" selection-start-column="31" selection-end-line="106" selection-end-column="31" />
-          <folding>
-            <element signature="e#19#846#0" expanded="true" />
-          </folding>
+          <caret line="8" column="62" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="62" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pkg/apis/knap/v1alpha1/register.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="1" selection-start-line="25" selection-start-column="1" selection-end-line="25" selection-end-column="1" />
+        <state relative-caret-position="60">
+          <caret line="4" column="18" selection-start-line="4" selection-start-column="18" selection-end-line="4" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pkg/apis/apis.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="1" selection-start-line="12" selection-start-column="1" selection-end-line="12" selection-end-column="1" />
+        <state relative-caret-position="105">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/deploy/crds/knap_helloworld_cr.yaml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/k8s.io/apimachinery/pkg/types/namespacedname.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="30" column="5" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/sigs.k8s.io/controller-runtime/pkg/reconcile/reconcile.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="38" column="21" selection-start-line="38" selection-start-column="21" selection-end-line="38" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/sigs.k8s.io/controller-runtime/pkg/client/interfaces.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="62" column="4" selection-start-line="62" selection-start-column="4" selection-end-line="62" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/controller/appengine/appengine_controller.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="172">
+          <caret line="107" column="13" selection-start-line="107" selection-start-column="13" selection-end-line="107" selection-end-column="13" />
           <folding>
-            <element signature="e#14#59#0" expanded="true" />
+            <element signature="e#19#846#0" expanded="true" />
           </folding>
         </state>
       </provider>
