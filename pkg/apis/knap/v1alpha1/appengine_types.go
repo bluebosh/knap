@@ -17,6 +17,8 @@ type AppengineSpec struct {
 	// The git repo of the application
 	GitRepo string `json:"gitRepo"`
 
+	GitAccessToken string `json:"gitAccessToken"`
+
 	// The git revision of the application
 	GitRevision string `json:"gitRevision"`
 
