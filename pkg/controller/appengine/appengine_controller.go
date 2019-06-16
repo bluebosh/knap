@@ -107,6 +107,7 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 				return reconcile.Result{}, err
 			}
 			err = r.client.Delete(context.TODO(), appservice)
+			reqLogger.Info("Remove knative service", "ksvc name", appservicename)
 			if err != nil {
 				reqLogger.Error(err, "Failed to delete app service", "knative service name", )
 				return reconcile.Result{}, err
