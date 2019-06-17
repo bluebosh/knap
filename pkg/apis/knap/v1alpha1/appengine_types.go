@@ -2,7 +2,7 @@ package v1alpha1
 
 import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	//pipelinev1alpha1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
+	pipelinev1alpha1 "github.com/tektoncd/pipeline/pkg/apis/pipeline/v1alpha1"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -19,6 +19,9 @@ type AppengineSpec struct {
 
 	// The git revision of the application
 	GitRevision string `json:"gitRevision"`
+
+	// The git access token of the application
+	GitAccessToken string `json:"gitAccessToken"`
 
 	// The application instance count
 	Size int32 `json:"size"`
@@ -37,7 +40,8 @@ type AppengineStatus struct {
 	Ready string `json:"ready"`
 
 	// The pipeline of the application
-	// PipelineRun *pipelinev1alpha1.PipelineRun `json:"pipelineRun"`
+	PipelineRun pipelinev1alpha1.PipelineRun `json:"pipelineRun"`
+
 	Domain string `json:"domain"`
 
 	Instance int32 `json:"instance"`
