@@ -186,7 +186,7 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 						if approute.Status.Conditions[2].Status != "True" {
 							app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
 							app.Status.Ready = "Deployed"
-							//app.Status.PipelineRun = pipelinerunresult
+							app.Status.PipelineRun = *pipelinerunresult
 							app.Status.Domain = "Preparing"
 							app.Status.Instance = 0
 							err := r.client.Status().Update(context.TODO(), app)
@@ -199,6 +199,7 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 						} else {
 							app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
 							app.Status.Ready = "Running"
+							app.Status.PipelineRun = *pipelinerunresult
 							app.Status.Domain = approute.Status.DeprecatedDomain
 							app.Status.Instance = 1
 							err := r.client.Status().Update(context.TODO(), app)
