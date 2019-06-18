@@ -166,7 +166,7 @@ func (r *ReconcileAppengine) Reconcile(request reconcile.Request) (reconcile.Res
 				if string(pipelinerunresult.Status.Conditions[0].Type) != "Succeeded" || string(pipelinerunresult.Status.Conditions[0].Status) != "True" {
 					app.Status.Status = string(pipelinerunresult.Status.Conditions[0].Type)
 					app.Status.Ready = "Pending"
-					//app.Status.PipelineRun = pipelinerunresult
+					app.Status.PipelineRun = *pipelinerunresult
 					app.Status.Domain = "NotReady"
 					err := r.client.Status().Update(context.TODO(), app)
 					if err != nil {
