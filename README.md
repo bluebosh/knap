@@ -9,7 +9,7 @@ Jordan is a developer of a startup company, he is trying to develop a new cloud 
 
 ```
 export KUBECONFIG=xxxxxx
-knap pipeline --watch https://github.com/bluebosh/jordan_app --template dev_commit --docker-token xxxxxx
+knap create --watch https://github.com/bluebosh/jordan_app --template push --docker-token xxxxxx
 ```
 
 After that, when a new commit is pushed in that git project, it's acknowedged by knap and knap will build the source code to an image and deploy into `dev` name space of that cluster a new revision.
