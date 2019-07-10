@@ -8,13 +8,32 @@ This project aims to bring a simple CI/CD experience to end users from building 
 Jordan is a developer of a startup company, he is trying to develop a new cloud application and plan to deploy on Kubernetes. He has a Kubernets cluster sitting on IBM Cloud. He created 3 name spaces `dev`, `staing` and `production`, and he followed the installation guide to enabled Knative and installed Tekton and this project `knap`. At the very early phase, he quickly rolled out the code and just wanted to build and deploy the application on the Kubernete cluster automatically for each new git commit. To archive this, with `knap`, he just needed to run few commands to get knap to watch his git project and help build and run the application in `dev` namespace when a new commit shown up.
 
 ```
-knap create --watch https://github.com/bluebosh/jordan_app --template push --docker-token xxxxxx
+knap create --watch https://github.com/bluebosh/jordan_app --template push --git-token xxxxxx --docker-token xxxxxx
 ```
 
-After that, when a new commit is pushed in that git project, it's acknowedged by knap and knap will build the source code to an image and deploy into `dev` name space of that cluster a new revision.
+After that, when a new commit is pushed in that git project, it's acknowedged by knap and knap will build the source code to an image and deploy into `dev` name space of that cluster as a new revision.
 
 ### Use Case 2 ###
-After some development interation cycles, the application got mature, Jordan would like to onboard the 1st production version and hoped to continuous integration and delivery. He needs a CI/CD pipeline to help on that...
+After some development interation cycles, the application got mature, Jordan would like to onboard the 1st production version and hoped to continuous integration and delivery. He needs a CI/CD solution to help on that. What Jordan needs to do with knap is as simple as follows: 
+
+1. Define a manifest under app root to specify trigger type (PR or tag), pipeline template, service bind, where to run test, namespace names for staging and production, update stratergy and etc. (Can we define it as a git workflow?), manually or thourgh knap-console?
+2. Put regression test case in place
+
+Knap needs to do the followings for registering the application into knap:
+
+1. Generate webhook in the application repo and set the trigger type
+2. Generate the pipeline instance from the template and input values
+
+Knap will lanuch the pipeline when it's triggered
+
+1. Build image from the source code (PR or tag)
+2. Service bind
+3. Provision in staging name space
+4. Run regression test
+5. Provision in production name space as a new revision
+6. Run regression test for this revision
+7. Gradually move request to this revision from 0% to 100%
+8. Remove the old revision and corresponding images after upgrade
 
 
 ### Prerequisites
